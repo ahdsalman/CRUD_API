@@ -94,18 +94,18 @@ class BlockAPIView(APIView):
 class HomePageView(APIView):
      permission_classes = [IsAuthenticated]
      def get(self,request,format=None):
-          try:
-               user = User.objects.get(email=request.user)
-               if not user.is_doctor and not user.is_admin:                      # For User
-                    users = User.objects.filter(is_doctor=True)
-                    serializer = DoctorProfileSerializer(users,many=True)
-                    return Response(serializer.data,status=status.HTTP_200_OK)
-               if user.is_doctor: 
-                    doctors = User.objects.filter(is_doctor=True)                                               # For Doctor
-                    serializer = DoctorProfileSerializer(doctors,many=True)
-                    return Response(serializer.data,status=status.HTTP_200_OK)
-          except User.DoesNotExist:
-               return Response({'msg':'User Dose not exist'},status=status.HTTP_404_NOT_FOUND)
+
+          user = User.objects.get(email=request.user)
+          if not user.is_doctor and not user.is_admin:                      # For User
+               users = User.objects.filter(is_doctor=True)
+               serializer = DoctorProfileSerializer(users,many=True)
+               return Response(serializer.data,status=status.HTTP_200_OK)
+          if user.is_doctor: 
+               doctors = User.objects.filter(is_doctor=True)                                               # For Doctor
+               serializer = DoctorProfileSerializer(doctors,many=True)
+               return Response(serializer.data,status=status.HTTP_200_OK)
+          
+               
      
                
           
