@@ -21,7 +21,7 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
           if first_name == last_name:
                raise serializers.ValidationError('First Name And Last Name Can\'t Be Same')
           if password != password2:
-               raise serializers.ValidationError('Password Didn\'t Match')
+               raise serializers.ValidationError('Password doesn\'t Match')
           return attrs
      
      def create(self, validated_data):
